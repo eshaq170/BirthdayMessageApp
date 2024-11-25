@@ -3,14 +3,16 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/eshaq170/BirthdayMessageApp.git'
+                git branch: 'main', url: 'https://github.com/eshaq170/BirthdayMessageApp.git'
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
+       stage('Install Dependencies') {
+    steps {
+        dir('BirthdayMessageApp') { // Set the correct working directory
+            sh 'npm install'
         }
+    }
+}
         stage('Run Tests') {
             steps {
                 sh 'npm test'
