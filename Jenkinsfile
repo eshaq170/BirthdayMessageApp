@@ -1,16 +1,19 @@
 pipeline {
     agent any
+    tools {
+        nodejs 'NodeJS' // Use the NodeJS configuration from Jenkins
+    }
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/eshaq170/BirthdayMessageApp.git'
+                git 'https://github.com/eshaq170/BirthdayMessageApp.git'
             }
         }
-       stage('Install Dependencies') {
-    steps {
-            sh 'npm install'
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
         }
-}
         stage('Run Tests') {
             steps {
                 sh 'npm test'
@@ -18,10 +21,10 @@ pipeline {
         }
         stage('Build Application') {
             steps {
-                sh 'npm run build || echo "No build step defined"'
+                echo 'No build step defined for this project.'
             }
         }
-        stage('Dockerize') {
+        stage('Deploy Application') {
             steps {
                 sh '''
                 docker build -t birthday-app .
@@ -32,7 +35,7 @@ pipeline {
     }
     post {
         success {
-            echo 'CI/CD pipeline completed successfully!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
             echo 'Pipeline failed.'
