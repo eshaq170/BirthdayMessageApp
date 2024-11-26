@@ -8,7 +8,7 @@ pipeline {
         }
        stage('Install Dependencies') {
     steps {
-        dir('C:\Users\sadat\Desktop\BirthdayMessageApp') { // Set the correct working directory
+        dir('C://Users/sadat/Desktop/BirthdayMessageApp') { // Set the correct working directory
             sh 'npm install'
         }
     }
